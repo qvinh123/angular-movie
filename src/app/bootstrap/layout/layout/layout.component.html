@@ -1,0 +1,106 @@
+<div style="height: 100vh">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="container">
+      <span class="fs-2">Kho Phim</span>
+      <span class="example-spacer"></span>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle(); isToggle = !isToggle"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon *ngIf="!isToggle">menu</mat-icon>
+        <mat-icon *ngIf="isToggle">clear</mat-icon>
+      </button>
+
+      <div
+        class="example-button-row"
+        *ngFor="let item of navItems"
+        fxShow="true"
+        fxHide.lt-md="true"
+      >
+        <button
+          [routerLink]="item.router"
+          *ngIf="item.type === routingItemTypeEnum.LINK"
+          mat-button
+        >
+          {{ item.display }}
+        </button>
+
+        <button
+          *ngIf="item.type === routingItemTypeEnum.DROPDOWN"
+          mat-button
+          [matMenuTriggerFor]="genre"
+        >
+          {{ item.display }}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #genre="matMenu" xPosition="before" class="menu">
+          <div class="row w-100 m-0 justify-content-between">
+            <button
+              [routerLink]="item.router"
+              mat-menu-item
+              class="col-4"
+              *ngFor="let subItem of item.childs"
+            >
+              {{ subItem.display }}
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav position="end" #sidenav>
+      <mat-nav-list
+        fxLayout="column"
+        fxLayoutAlign="space-around center"
+        class="py-4"
+      >
+        <!-- <a (click)="sidenav.toggle()" mat-list-item>
+          <mat-icon>clear</mat-icon>
+        </a> -->
+        <div
+          class="example-button-row"
+          *ngFor="let item of navItems"
+          mat-list-item
+        >
+          <button
+            [routerLink]="item.router"
+            *ngIf="item.type === routingItemTypeEnum.LINK"
+            mat-button
+          >
+            {{ item.display }}
+          </button>
+
+          <button
+            *ngIf="
+              item.type === routingItemTypeEnum.DROPDOWN && !item.isInvisable
+            "
+            mat-button
+            [matMenuTriggerFor]="genre"
+          >
+            {{ item.display }}
+            <mat-icon>arrow_drop_down</mat-icon>
+          </button>
+          <mat-menu #genre="matMenu" xPosition="before" class="menu">
+            <div class="row w-100 m-0 justify-content-between">
+              <button
+                [routerLink]="item.router"
+                mat-menu-item
+                class="col-4"
+                *ngFor="let subItem of item.childs"
+              >
+                {{ subItem.display }}
+              </button>
+            </div>
+          </mat-menu>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

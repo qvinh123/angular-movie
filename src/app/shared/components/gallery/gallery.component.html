@@ -1,0 +1,16 @@
+<swiper
+  [slidesPerView]="3"
+  [spaceBetween]="30"
+  [slidesPerGroup]="3"
+  [loop]="true"
+  [loopFillGroupWithBlank]="true"
+  [pagination]="{
+    clickable: true
+  }"
+  [navigation]="true"
+  class="mySwiper"
+>
+  <ng-template swiperSlide *ngFor="let img of allowDay">
+    <img [src]="img.poster_url" [alt]="img.poster_url" />
+  </ng-template>
+</swiper>

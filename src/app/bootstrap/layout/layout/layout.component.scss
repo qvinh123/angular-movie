@@ -1,0 +1,24 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+button.mat-menu-item {
+  width: 115px;
+}
+
+.mat-menu-item {
+  display: inline-block;
+  text-align: center;
+}
+
+::ng-deep .mat-menu-panel {
+  max-width: 350px !important;
+}
+.mat-sidenav {
+  width: 100%;
+}
+.mat-nav-list .mat-list-item{
+  width: auto;
+}
+.mat-drawer-content {
+  overflow: hidden;
+}
